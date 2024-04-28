@@ -1,0 +1,29 @@
+
+ label {
+    display: block;
+    margin: 1.25rem 0 1rem 0;
+    color: white;
+  }
+
+  input {
+    height: 40px;
+    width: 50%;
+    padding: 15px;
+    background-color: #f1f9ff;
+    border: 2px solid #bce0fd;
+    color: black;
+    border-radius: 8px;
+    align-content: center;
+  }
+  button {
+    height: 40px;
+    width: 53%;
+    background-color: #258de6;
+    color: white;
+    letter-spacing: 1px;
+    border: none;
+    margin: 0 auto;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+  }
