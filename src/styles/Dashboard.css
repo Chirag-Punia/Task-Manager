@@ -27,3 +27,17 @@
     margin-top: 1.5rem;
     border-radius: 8px;
   }
+  .display{
+    color:white;
+  }
+
+  .idd h3{
+    color: white;
+    margin-top: 20px;
+    font-weight: 800;
+  }
+  .idd p{
+    color: white;
+    margin-top: 20px;
+    font-weight: 400;
+  }

@@ -9,6 +9,14 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  done: {
+    type: Boolean,
+    default: false,
+  },
+  userID: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = taskSchema;

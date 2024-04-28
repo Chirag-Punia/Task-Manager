@@ -14,12 +14,12 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        if (res.data === "User already exist") {
-          reactNavigator("/dashboard");
+        if (res.data === "Wrong password") {
+          toast.error("Wrong password");
         }
       
-        else if(res.data === "Wrong password"){
-            toast.error("Wrong password");
+        else if(res.data !== "Wrong password"){
+            
         } else {
           toast.error("User does not exist");
           reactNavigator("/signup");
