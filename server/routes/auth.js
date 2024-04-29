@@ -7,16 +7,15 @@ const jwt = require("jsonwebtoken");
 const { userid, temp } = require("../middleware/temp");
 const { SECRET, authenticateJwt } = require("../middleware/auth");
 
-
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  user.findOne({ email }).then((user) => {
+  await user.findOne({ email }).then((user) => {
     if (user) {
       if (password !== user.password) {
         res.json({ msg: "Wrong password" });
       } else {
         const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
-        res.json({ msg: "Login successfully" ,token});
+        res.json({ msg: "Login successfully", token });
       }
     } else {
       res.json({ msg: "User does not exist" });
@@ -37,9 +36,19 @@ router.post("/signup", async (req, res) => {
       name: name,
       password: password,
     });
-    newUser.save();
+    await newUser.save();
     res.send("User created");
   }
+});
+
+router.get("/me", authenticateJwt, async (req, res) => {
+  await user.findOne({ _id: req.headers.userID }).then((user) => {
+    if (user) {
+      res.json({ username: user.name });
+    } else {
+      res.json({ message: "User not logged in" });
+    }
+  });
 });
 
 module.exports = router;

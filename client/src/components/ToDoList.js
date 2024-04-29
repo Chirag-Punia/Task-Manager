@@ -3,13 +3,20 @@ import "../styles/Dashboard.css";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { authState } from "../store/authState";
+import { useNavigate } from "react-router-dom";
 
 const ToDoList = () => {
+  const navigate = useNavigate();
+  const base_url = "https://todo-1-5ip8.onrender.com";
+  const dev_url = "http://localhost:5000";
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState();
   const [description, setDescription] = useState();
-  const markDone = (id) => {
-    axios.patch(`https://todo-1-5ip8.onrender.com/todos/todo/${id}/done`).then(() => {
+  const authStateValue = useRecoilValue(authState);
+  const markDone = async (id) => {
+    await axios.patch(`${dev_url}/todos/todo/${id}/done`).then(() => {
       setTodos(
         todos.map((todo) => {
           if (id === todo._id) {
@@ -22,7 +29,7 @@ const ToDoList = () => {
   };
   var config = {
     method: "post",
-    url: "https://todo-1-5ip8.onrender.com/todos/todo",
+    url: `${dev_url}/todos/todo`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,25 +39,44 @@ const ToDoList = () => {
       description,
     },
   };
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    axios.get("https://todo-1-5ip8.onrender.com/todos/todo").then((res) => {
-      setTodos(res.data);
-    });
-    axios(config).then((res) => {
-      console.log(2);
+
+    await axios(config).then((res) => {
       if (res.status === 200) {
-        console.log(3);
         setTodos([...todos, res.data]);
         toast.success("Task created");
       }
     });
   };
   useEffect(() => {
-
-  }, []);
+    const temp = async () => {
+      var config = {
+        url: `${dev_url}/todos/todo`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      await axios(config).then((res) => {
+        setTodos(res.data);
+      });
+    };
+    temp();
+  }, [authState.value]);
   return (
     <div>
+      <h2 className="h2name">Welcome {authStateValue.username}</h2>
+      <div style={{ marginTop: 25, marginLeft: 20 }}>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/login");
+          }}
+        >
+          Logout
+        </button>
+      </div>
       <form>
         <label>Task</label>
         <input

@@ -14,20 +14,20 @@ router.post("/todo",authenticateJwt,async (req, res) => {
     description: description,
     userID:req.headers.userID
   });
-  newTask.save().then((data) => {
+  await newTask.save().then((data) => {
     res.status(200).send(data);
   });
 });
 
-router.get("/todo",authenticateJwt,(req, res) => {
-  taskDB.find(req.headers.userID).then((data) => {
+router.get("/todo",authenticateJwt,async (req, res) => {
+  await taskDB.find({userID : req.headers.userID}).then((data) => {
     res.status(200).send(data);
   });
 });
 
-router.patch("/todo/:id/done", (req, res) => {
+router.patch("/todo/:id/done", async (req, res) => {
   const id = req.params.id;
-  taskDB
+  await taskDB
     .findOneAndUpdate({ _id: id }, { $set: { done: true } })
     .then((data) => {
       res.status(200).send(data);

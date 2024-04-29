@@ -5,11 +5,13 @@ import axios from "axios";
 import {  toast } from 'react-toastify';
 
 const Login = () => {
+  const dev_url = "http://localhost:5000";
+  const base_url = "https://todo-1-5ip8.onrender.com";
   const reactNavigator = useNavigate();
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    axios
-      .post("https://todo-1-5ip8.onrender.com/auth/login", {
+    await axios
+      .post(`${dev_url}/auth/login`, {
         email: email,
         password: password,
       })
