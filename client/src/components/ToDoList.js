@@ -34,6 +34,9 @@ const ToDoList = () => {
   };
   const handleClick = (e) => {
     e.preventDefault();
+    axios.get("http://localhost:5000/todos/todo").then((res) => {
+      setTodos(res.data);
+    });
     axios(config).then((res) => {
       console.log(2);
       if (res.status === 200) {
@@ -44,9 +47,7 @@ const ToDoList = () => {
     });
   };
   useEffect(() => {
-    axios.get("http://localhost:5000/todos/todo").then((res) => {
-      setTodos(res.data);
-    });
+
   }, []);
   return (
     <div>

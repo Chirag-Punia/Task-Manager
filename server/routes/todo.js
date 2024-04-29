@@ -19,8 +19,8 @@ router.post("/todo",authenticateJwt,async (req, res) => {
   });
 });
 
-router.get("/todo", (req, res) => {
-  taskDB.find().then((data) => {
+router.get("/todo",authenticateJwt,(req, res) => {
+  taskDB.find(req.headers.userID).then((data) => {
     res.status(200).send(data);
   });
 });

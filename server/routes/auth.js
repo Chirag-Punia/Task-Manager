@@ -5,7 +5,7 @@ const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
 const jwt = require("jsonwebtoken");
 const { userid, temp } = require("../middleware/temp");
-const { SECRET } = require("../middleware/auth");
+const { SECRET, authenticateJwt } = require("../middleware/auth");
 
 
 router.post("/login", async (req, res) => {
@@ -13,13 +13,13 @@ router.post("/login", async (req, res) => {
   user.findOne({ email }).then((user) => {
     if (user) {
       if (password !== user.password) {
-        res.status(401).json({ msg: "Wrong password" });
+        res.json({ msg: "Wrong password" });
       } else {
         const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
-        res.status(200).json({ msg: "Login successfully" ,token});
+        res.json({ msg: "Login successfully" ,token});
       }
     } else {
-      res.status(401).json({ msg: "User does not exist" });
+      res.json({ msg: "User does not exist" });
     }
   });
 });
