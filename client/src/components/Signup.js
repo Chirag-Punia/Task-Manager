@@ -9,7 +9,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/auth/signup", {
+      .post("https://todo-1-5ip8.onrender.com/auth/signup", {
         email,
         name,
         password,

@@ -9,7 +9,7 @@ const ToDoList = () => {
   const [task, setTask] = useState();
   const [description, setDescription] = useState();
   const markDone = (id) => {
-    axios.patch(`http://localhost:5000/todos/todo/${id}/done`).then(() => {
+    axios.patch(`https://todo-1-5ip8.onrender.com/todos/todo/${id}/done`).then(() => {
       setTodos(
         todos.map((todo) => {
           if (id === todo._id) {
@@ -22,7 +22,7 @@ const ToDoList = () => {
   };
   var config = {
     method: "post",
-    url: "http://localhost:5000/todos/todo",
+    url: "https://todo-1-5ip8.onrender.com/todos/todo",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -34,7 +34,7 @@ const ToDoList = () => {
   };
   const handleClick = (e) => {
     e.preventDefault();
-    axios.get("http://localhost:5000/todos/todo").then((res) => {
+    axios.get("https://todo-1-5ip8.onrender.com/todos/todo").then((res) => {
       setTodos(res.data);
     });
     axios(config).then((res) => {

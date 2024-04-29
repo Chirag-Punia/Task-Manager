@@ -9,7 +9,7 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/auth/login", {
+      .post("https://todo-1-5ip8.onrender.com/auth/login", {
         email: email,
         password: password,
       })
