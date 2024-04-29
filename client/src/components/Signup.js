@@ -11,7 +11,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(`${dev_url}/auth/signup`, {
+      .post(`${base_url}/auth/signup`, {
         email,
         name,
         password,

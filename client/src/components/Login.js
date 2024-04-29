@@ -11,7 +11,7 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     await axios
-      .post(`${dev_url}/auth/login`, {
+      .post(`${base_url}/auth/login`, {
         email: email,
         password: password,
       })

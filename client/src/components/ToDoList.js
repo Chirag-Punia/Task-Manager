@@ -16,7 +16,7 @@ const ToDoList = () => {
   const [description, setDescription] = useState();
   const authStateValue = useRecoilValue(authState);
   const markDone = async (id) => {
-    await axios.patch(`${dev_url}/todos/todo/${id}/done`).then(() => {
+    await axios.patch(`${base_url}/todos/todo/${id}/done`).then(() => {
       setTodos(
         todos.map((todo) => {
           if (id === todo._id) {
@@ -29,7 +29,7 @@ const ToDoList = () => {
   };
   var config = {
     method: "post",
-    url: `${dev_url}/todos/todo`,
+    url: `${base_url}/todos/todo`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -52,7 +52,7 @@ const ToDoList = () => {
   useEffect(() => {
     const temp = async () => {
       var config = {
-        url: `${dev_url}/todos/todo`,
+        url: `${base_url}/todos/todo`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
