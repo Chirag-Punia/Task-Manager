@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
-mongoose.connect(process.env.MONGO_URI, { dbName: "userDB" }).then(() => {
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://cpuniabe21:RH7bxwKzcPyljZgR@cluster0.zxrnern.mongodb.net/", { dbName: "userDB" }).then(() => {
   console.log("mongoDD connected");
 });
 
