@@ -12,6 +12,8 @@ const user = mongoose.model("user", userSchema);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: "samplemail650@gmail.com",
     pass: "dcallqzulbgqhuwt",
@@ -46,8 +48,8 @@ const handleJob = async (date, userID, task, description) => {
 };
 
 const mailDone = async (userID) => {
-  taskDB.findOne({ userID }).then(async (obj) => {
-    user.findOne({ _id: userID }).then(async (user) => {
+  await taskDB.findOne({ userID }).then(async (obj) => {
+    await user.findOne({ _id: userID }).then(async (user) => {
       await transporter.sendMail({
         from: {
           name: "Task Done",
@@ -83,17 +85,19 @@ router.get("/todo", authenticateJwt, async (req, res) => {
 
 router.patch("/todo/:id/done", authenticateJwt, async (req, res) => {
   const id = req.params.id;
-
+  console.log("mailDone");
   await taskDB
     .findOneAndUpdate({ _id: id }, { $set: { done: true } })
-    .then((data) => {
+    .then(async (data) => {
+      await taskDB.findOne({ _id: id }).then(async (user) => {
+        console.log(1);
+        if (user.done === true) {
+          console.log(2);
+          await mailDone(req.headers.userID);
+        }
+      });
       res.status(200).send(data);
     });
-  await taskDB.findOne({ _id: id }).then(async (user) => {
-    if (!user.done) {
-      await mailDone(req.headers.userID);
-    }
-  });
 });
 
 module.exports = router;

@@ -50,7 +50,7 @@ const InitState = () => {
     try {
       var config = {
         method: "GET",
-        url: `${base_url}/auth/me`,
+        url: `${dev_url}/auth/me`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
