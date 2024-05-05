@@ -21,8 +21,14 @@ const transporter = nodemailer.createTransport({
 });
 const handleJob = async (date, userID, task, description) => {
   console.log("inside handle job");
-  console.log(date);
-  cron.schedule("* * * * *", async () => {
+  const dateTime = new Date(date);
+  const minute = dateTime.getMinutes();
+  const hour = dateTime.getHours();
+  const dayOfMonth = dateTime.getDate();
+  const month = dateTime.getMonth() + 1;
+  const dayOfWeek = dateTime.getDay();
+  console.log(dateTime);
+  cron.schedule(`${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}`, async () => {
     console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
