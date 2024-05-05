@@ -29,7 +29,7 @@ const handleJob = async (date, userID, task, description) => {
   const dayOfWeek = dateTime.getDay().toString();
   console.log(dateTime);
   console.log(`${minute} ${hour} ${dayOfMonth} ${month}  *`);
-  cron.schedule(`${minute} ${hour} ${dayOfMonth} ${month} *`, async () => {
+  cron.schedule(`${month} ${dayOfMonth} ${hour} ${minute} *`, async () => {
     console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
