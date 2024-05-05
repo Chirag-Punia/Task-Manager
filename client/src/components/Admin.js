@@ -33,7 +33,7 @@ export const Admin = () => {
     let idd = e.target.value;
     var config = {
       method: "PATCH",
-      url: `{$base_url}/admin/data`,
+      url: `${base_url}/admin/data`,
       data: { idd },
     };
 
