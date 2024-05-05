@@ -9,11 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const ToDoList = () => {
   const navigate = useNavigate();
-  const [date, Datechange] = useState(
-    new Date().toISOString().slice(0, 10) +
-      "T" +
-      new Date().toISOString().slice(11, 16)
-  );
+  const [date, Datechange] = useState();
   const base_url = "https://todo-1-5ip8.onrender.com";
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState();
@@ -117,7 +113,6 @@ const ToDoList = () => {
             <input
               aria-label="Date and time"
               type="datetime-local"
-              value={date}
               onChange={(e) => {
                 Datechange(e.target.value);
               }}
