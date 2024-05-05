@@ -11,7 +11,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(`${dev_url}/auth/signup`, {
+      .post(`${base_url}/auth/signup`, {
         email,
         name,
         password,
@@ -27,8 +27,10 @@ const Signup = () => {
         } else if (res.data == "Password should be at least 6 characters") {
           toast.error("Password should be at least 6 characters");
           return;
-        } else if(res.data === "User created"){ 
-         window.location = "/dashboard";
+        } else if (res.data == "Email already exist") {
+          toast.error("Email already exist");
+        } else if (res.data === "User created") {
+          window.location = "/dashboard";
         }
       });
   };

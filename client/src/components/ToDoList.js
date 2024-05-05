@@ -27,7 +27,7 @@ const ToDoList = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       method: "PATCH",
-      url: `${dev_url}/todos/todo/${id}/done`,
+      url: `${base_url}/todos/todo/${id}/done`,
     };
     await axios(temp).then(() => {
       setTodos(
@@ -42,7 +42,7 @@ const ToDoList = () => {
   };
   var configTodo = {
     method: "POST",
-    url: `${dev_url}/todos/todo`,
+    url: `${base_url}/todos/todo`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -66,7 +66,7 @@ const ToDoList = () => {
   useEffect(() => {
     const temp = async () => {
       var config = {
-        url: `${dev_url}/todos/todo`,
+        url: `${base_url}/todos/todo`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -130,7 +130,7 @@ const ToDoList = () => {
             <h3>Task : {todo.task}</h3>
             <p>Description : {todo.description}</p>
             <p>Scheduled Date : {todo.date.slice(0, 10)}</p>
-            <p>Scheduled Time : {todo.date}</p>
+            <p>Scheduled Time : {todo.date.slice(11,16)}</p>
 
             <button onClick={() => markDone(todo._id)}>
               {todo.done ? "Done" : "Mark as Done"}

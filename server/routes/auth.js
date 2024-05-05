@@ -31,20 +31,26 @@ router.post("/signup", async (req, res) => {
   } else if (password.length < 2) {
     res.send("Password should be at least 6 characters");
   } else {
-    const newUser = new user({
-      email: email,
-      name: name,
-      password: password,
+    await user.findOne({ email: email }).then(async (res) => {
+      if (res) {
+        res.send("Email already exist");
+      } else {
+        const newUser = new user({
+          email: email,
+          name: name,
+          password: password,
+        });
+        await newUser.save();
+        res.send("User created");
+      }
     });
-    await newUser.save();
-    res.send("User created");
   }
 });
 
 router.get("/me", authenticateJwt, async (req, res) => {
   await user.findOne({ _id: req.headers.userID }).then((user) => {
     if (user) {
-      res.json({ username: user.name ,isAdmin : user.isAdmin});
+      res.json({ username: user.name, isAdmin: user.isAdmin });
     } else {
       res.json({ message: "User not logged in" });
     }

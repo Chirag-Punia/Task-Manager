@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const taskSchema = new mongoose.Schema({
   task: {
     type: String,
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   done: {
     type: Boolean,
@@ -19,7 +19,7 @@ const taskSchema = new mongoose.Schema({
   },
   date : {
     type : Date,
-    required : true
+    required : false
   }
 });
 

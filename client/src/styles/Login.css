@@ -5,12 +5,21 @@
     font-weight: 400;
   }
 body{
-    background-color: black;
+  background-image: url('../../public/1.jpg');
+  background-size: cover;
+  background-position: center;
+
+ 
+}
+h1{
+  color: white;
+  display: flex;
+  justify-content: center;
 }
 
   .wrapper {
     display: flex;
-    height: 100vh;
+    height: 90vh;
   color:white;
     align-items: center;
 

@@ -11,7 +11,7 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     await axios
-      .post(`${dev_url}/auth/login`, {
+      .post(`${base_url}/auth/login`, {
         email: email,
         password: password,
       })
@@ -36,7 +36,9 @@ const Login = () => {
   const [password, setPassword] = useState();
   return (
     <>
+     <h1>Task Scheduler</h1>
       <div className={"wrapper signin"}>
+       
         <div className="form">
           <div className="heading">Login Page</div>
           <form>
