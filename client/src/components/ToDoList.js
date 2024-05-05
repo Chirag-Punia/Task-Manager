@@ -15,7 +15,6 @@ const ToDoList = () => {
       new Date().toISOString().slice(11, 16)
   );
   const base_url = "https://todo-1-5ip8.onrender.com";
-  const dev_url = "http://localhost:5000";
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState();
   const [description, setDescription] = useState();
@@ -57,6 +56,7 @@ const ToDoList = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     await axios(configTodo).then((res) => {
+      console.log(date);
       if (res.status === 200) {
         setTodos([...todos, res.data]);
         toast.success("Task created");
@@ -130,7 +130,7 @@ const ToDoList = () => {
             <h3>Task : {todo.task}</h3>
             <p>Description : {todo.description}</p>
             <p>Scheduled Date : {todo.date.slice(0, 10)}</p>
-            <p>Scheduled Time : {todo.date.slice(11,16)}</p>
+            <p>Scheduled Time : {todo.date.slice(11, 16)}</p>
 
             <button onClick={() => markDone(todo._id)}>
               {todo.done ? "Done" : "Mark as Done"}

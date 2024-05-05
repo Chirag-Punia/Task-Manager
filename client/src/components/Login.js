@@ -5,7 +5,7 @@ import axios from "axios";
 import {  toast } from 'react-toastify';
 
 const Login = () => {
-  const dev_url = "http://localhost:5000";
+
   const base_url = "https://todo-1-5ip8.onrender.com";
   const reactNavigator = useNavigate();
   const handleClick = async (e) => {
@@ -23,6 +23,7 @@ const Login = () => {
           if(res.data.token){
             localStorage.setItem("token", res.data.token);
             window.location = "/dashboard";
+            // reactNavigator("/dashboard")
           }
           toast.success("Login successfully");
 

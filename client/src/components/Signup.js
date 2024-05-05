@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Signup = () => {
-  const dev_url = "http://localhost:5000";
+
   const base_url = "https://todo-1-5ip8.onrender.com";
   const reactNavigator = useNavigate();
   const handleSubmit = async (e) => {

@@ -12,15 +12,18 @@ const user = mongoose.model("user", userSchema);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
     user: "samplemail650@gmail.com",
     pass: "dcallqzulbgqhuwt",
   },
 });
 const handleJob = async (date, userID, task, description) => {
+  console.log("inside handle job");
+  console.log(date);
   schedule.scheduleJob(date, async () => {
+    console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
     });

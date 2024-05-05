@@ -43,7 +43,7 @@ export const App = () => {
 
 const InitState = () => {
   const base_url = "https://todo-1-5ip8.onrender.com";
-  const dev_url = "http://localhost:5000";
+
   const setAuth = useSetRecoilState(authState);
   const navigate = useNavigate();
   const init = async () => {
@@ -51,7 +51,7 @@ const InitState = () => {
     try {
       var config = {
         method: "GET",
-        url: `${dev_url}/auth/me`,
+        url: `${base_url}/auth/me`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
