@@ -31,8 +31,8 @@ router.post("/signup", async (req, res) => {
   } else if (password.length < 2) {
     res.send("Password should be at least 6 characters");
   } else {
-    await user.findOne({ email: email }).then(async (res) => {
-      if (res) {
+    await user.findOne({ email: email }).then(async (obj) => {
+      if (obj) {
         res.send("Email already exist");
       } else {
         const newUser = new user({
