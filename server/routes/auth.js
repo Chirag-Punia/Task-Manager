@@ -44,7 +44,7 @@ router.post("/signup", async (req, res) => {
 router.get("/me", authenticateJwt, async (req, res) => {
   await user.findOne({ _id: req.headers.userID }).then((user) => {
     if (user) {
-      res.json({ username: user.name });
+      res.json({ username: user.name ,isAdmin : user.isAdmin});
     } else {
       res.json({ message: "User not logged in" });
     }

@@ -8,6 +8,7 @@ import ToDoList from "./components/ToDoList";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import { authState } from "./store/authState";
 import axios from "axios";
+import { Admin } from "./components/Admin";
 
 export const App = () => {
   return (
@@ -29,10 +30,10 @@ export const App = () => {
         <BrowserRouter>
           <InitState />
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<ToDoList />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
@@ -56,7 +57,9 @@ const InitState = () => {
         },
       };
       await axios(config).then((res) => {
-        if (res.data.username) {
+        if (res.data.isAdmin) {
+          navigate("/admin");
+        } else if (res.data.username) {
           setAuth({ token: res.data.token, username: res.data.username });
           navigate("/dashboard");
         } else {

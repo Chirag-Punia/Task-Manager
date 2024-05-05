@@ -7,7 +7,8 @@ const authenticateJwt = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, SECRET, (err, user) => {
       if (err) {
-        return res.sendStatus(401);
+        console.log("middleware error")
+        return res.sendStatus(200);
       }
       req.headers.userID = user.id;
       next();

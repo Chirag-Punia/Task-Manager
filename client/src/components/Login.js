@@ -28,7 +28,7 @@ const Login = () => {
 
         } else {
           toast.error("User does not exist");
-          reactNavigator("/signup");
+          window.location = "/signup";
         }
       });
   };

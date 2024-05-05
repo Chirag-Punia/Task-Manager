@@ -28,7 +28,7 @@ const Signup = () => {
           toast.error("Password should be at least 6 characters");
           return;
         } else if(res.data === "User created"){ 
-          reactNavigator("/login");
+         window.location = "/dashboard";
         }
       });
   };

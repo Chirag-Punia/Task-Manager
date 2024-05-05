@@ -80,3 +80,29 @@ body{
     margin-top: 20px;
     
   }
+  .admin{
+    color : white;
+  }
+
+  
+  .adminLogout{
+    margin-bottom: 30px;
+  }
+  table {
+    border: 2px solid #258de6;
+    width: 765px;
+    height: 200px;
+}
+ 
+th {
+    border-bottom: 1px solid black;
+}
+ 
+td {
+    text-align: center;
+}
+#adminButton{
+  display: block;
+  margin: auto;
+  justify-content: center;
+}

@@ -7,7 +7,6 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../store/authState";
 import { useNavigate } from "react-router-dom";
 
-
 const ToDoList = () => {
   const navigate = useNavigate();
   const [date, Datechange] = useState(
@@ -27,9 +26,9 @@ const ToDoList = () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      method : "PATCH",
-      url : `${dev_url}/todos/todo/${id}/done`,
-    }
+      method: "PATCH",
+      url: `${dev_url}/todos/todo/${id}/done`,
+    };
     await axios(temp).then(() => {
       setTodos(
         todos.map((todo) => {
@@ -74,6 +73,7 @@ const ToDoList = () => {
         },
       };
       await axios(config).then((res) => {
+        console.log(res.data);
         setTodos(res.data);
       });
     };
@@ -88,7 +88,7 @@ const ToDoList = () => {
             className="logout"
             onClick={() => {
               localStorage.removeItem("token");
-              navigate("/login");
+              window.location = "/login";
             }}
           >
             Logout
