@@ -21,12 +21,12 @@ const transporter = nodemailer.createTransport({
 });
 const handleJob = async (date, userID, task, description) => {
   console.log("inside handle job");
-  const dateTime = new Date(date);
-  const minute = dateTime.getMinutes();
-  const hour = dateTime.getHours();
-  const dayOfMonth = dateTime.getDate();
-  const month = dateTime.getMonth() + 1;
-  const dayOfWeek = dateTime.getDay();
+  const dateTime = new Date(date).toString();
+  const minute = dateTime.getMinutes().toString();
+  const hour = dateTime.getHours().toString();
+  const dayOfMonth = dateTime.getDate().toString();
+  const month = (dateTime.getMonth() + 1).toString();
+  const dayOfWeek = dateTime.getDay().toString();
   console.log(dateTime);
   cron.schedule(`${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}`, async () => {
     console.log("Job started");
