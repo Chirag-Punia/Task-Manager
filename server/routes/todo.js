@@ -8,12 +8,12 @@ const schedule = require("node-schedule");
 const nodemailer = require("nodemailer");
 const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
+const cron = require("node-cron")
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
   port: 587,
-  secure: false,
   auth: {
     user: "samplemail650@gmail.com",
     pass: "dcallqzulbgqhuwt",
@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
 const handleJob = async (date, userID, task, description) => {
   console.log("inside handle job");
   console.log(date);
-  schedule.scheduleJob(date, async () => {
+  cron.schedule(date, async () => {
     console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
