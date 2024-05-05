@@ -8,6 +8,7 @@ export const Admin = () => {
   const [tasks, setTask] = useState();
   const [taskCount, setTaskCount] = useState();
   const [taskloading, settaskLoading] = useState(true);
+  const base_url = "https://todo-1-5ip8.onrender.com";
 
   const [loading, setLoading] = useState(true);
   const deleteUser = async (e) => {
@@ -15,7 +16,7 @@ export const Admin = () => {
     let idd = e.target.value;
     var config = {
       method: "DELETE",
-      url: "http://localhost:5000/admin/data/del",
+      url: `${base_url}/admin/data/del`,
       data: { idd },
     };
 
@@ -32,7 +33,7 @@ export const Admin = () => {
     let idd = e.target.value;
     var config = {
       method: "PATCH",
-      url: "http://localhost:5000/admin/data",
+      url: `{$base_url}/admin/data`,
       data: { idd },
     };
 
@@ -47,7 +48,7 @@ export const Admin = () => {
     const initTask = async () => {
       var config = {
         method: "GET",
-        url: "http://localhost:5000/admin/data/task",
+        url: `${base_url}/admin/data/task`,
       };
       await axios(config).then((res) => {
         setTask(res.data);
@@ -57,7 +58,7 @@ export const Admin = () => {
     const init = async () => {
       var config = {
         method: "GET",
-        url: "http://localhost:5000/admin/data",
+        url: `${base_url}/admin/data`,
       };
       await axios(config).then((res) => {
         setData(res.data);
