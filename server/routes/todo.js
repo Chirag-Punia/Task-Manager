@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 });
 const handleJob = async (date, userID, task, description) => {
   console.log("inside handle job");
-  const dateTime = new Date(date).toString();
+  const dateTime = new Date(date);
   const minute = dateTime.getMinutes().toString();
   const hour = dateTime.getHours().toString();
   const dayOfMonth = dateTime.getDate().toString();
