@@ -13,10 +13,14 @@ const taskDB = mongoose.model("taskDB", taskSchema);
 
 router.get("/data", async (req, res) => {
   await user.find().then((data) => {
-    console.log(data);
     res.send(data);
   });
 });
+router.get("/data/task", async (req, res) => {
+    await taskDB.find().then((data) => {
+      res.send(data);
+    });
+  });
 
 router.patch("/data", async (req, res) => {
   const { idd } = req.body;
@@ -25,5 +29,17 @@ router.patch("/data", async (req, res) => {
     .then((obj) => {
       res.sendStatus(200);
     });
+});
+router.delete("/data/del", async (req, res) => {
+  const { idd } = req.body;
+  await user.find({ _id: idd }).then(async (obj) => {
+    if (obj[0].isAdmin === true) {
+      res.send("Admin");
+    } else {
+      await user.findOneAndDelete({ _id: idd }).then(() => {
+        res.send("del");
+      });
+    }
+  });
 });
 module.exports = router;

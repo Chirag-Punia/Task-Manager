@@ -21,11 +21,9 @@ const transporter = nodemailer.createTransport({
 });
 const handleJob = async (date, userID, task, description) => {
   schedule.scheduleJob(date, async () => {
-    console.log("JOB Started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
     });
-    console.log(EMAIL);
     const info = await transporter.sendMail({
       from: {
         name: "Task Scheduler",
@@ -64,7 +62,6 @@ const mailDone = async (userID) => {
 };
 router.post("/todo", authenticateJwt, async (req, res) => {
   const { task, description, date } = req.body;
-  console.log(date);
   const newTask = new taskDB({
     date: date,
     task: task,
@@ -85,14 +82,11 @@ router.get("/todo", authenticateJwt, async (req, res) => {
 
 router.patch("/todo/:id/done", authenticateJwt, async (req, res) => {
   const id = req.params.id;
-  console.log("mailDone");
   await taskDB
     .findOneAndUpdate({ _id: id }, { $set: { done: true } })
     .then(async (data) => {
       await taskDB.findOne({ _id: id }).then(async (user) => {
-        console.log(1);
         if (user.done === true) {
-          console.log(2);
           await mailDone(req.headers.userID);
         }
       });

@@ -73,7 +73,6 @@ const ToDoList = () => {
         },
       };
       await axios(config).then((res) => {
-        console.log(res.data);
         setTodos(res.data);
       });
     };
