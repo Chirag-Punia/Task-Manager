@@ -66,8 +66,11 @@ const mailDone = async (userID) => {
 };
 router.post("/todo", authenticateJwt, async (req, res) => {
   let { task, description, date } = req.body;
-  console.log(date);
-  date = moment.parseZone(date).local().format();
+  console.log(date , typeof date);
+  if(date.getHours() < 12){
+    date = moment(date).add(5,"h").toDate();
+    date = moment(date).add(30,"m").toDate();
+  }
   console.log(date, typeof date);
   const newTask = new taskDB({
     date: date,

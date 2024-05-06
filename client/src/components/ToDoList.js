@@ -35,7 +35,9 @@ const ToDoList = () => {
       );
     });
   };
-  date = moment(date).toDate();
+  console.log(date, typeof date);
+  date = new Date(date);
+  console.log(date, typeof date);
   var configTodo = {
     method: "POST",
     url: `${base_url}/todos/todo`,
