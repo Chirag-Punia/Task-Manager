@@ -10,7 +10,7 @@ const user = mongoose.model("user", userSchema);
 var schedule = require("node-schedule");
 const moment = require("moment");
 moment().local();
-moment().local(true); 
+moment().local(true);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -66,7 +66,9 @@ const mailDone = async (userID) => {
 };
 router.post("/todo", authenticateJwt, async (req, res) => {
   let { task, description, date } = req.body;
+  console.log(date);
   date = moment.parseZone(date).local().format();
+  console.log(date, typeof date);
   const newTask = new taskDB({
     date: date,
     task: task,
