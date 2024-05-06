@@ -68,6 +68,8 @@ router.post("/todo", authenticateJwt, async (req, res) => {
   let selectedHour = parseInt(date.slice(11, 13), 10);
   let selectedMinute = parseInt(date.slice(14), 10);
   let adjustedDateTime = null;
+  let adjustedHour = null;
+  let adjustedMinute = null;
   if (selectedHour < 12) {
     let adjustedHour = selectedHour + 5;
     let adjustedMinute = selectedMinute + 30;
