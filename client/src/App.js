@@ -59,6 +59,7 @@ const InitState = () => {
       await axios(config).then((res) => {
         if (res.data.isAdmin) {
           navigate("/admin");
+          return;
         } else if (res.data.username) {
           setAuth({ token: res.data.token, username: res.data.username });
           navigate("/dashboard");

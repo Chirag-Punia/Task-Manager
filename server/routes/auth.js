@@ -4,7 +4,6 @@ const router = express.Router();
 const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
 const jwt = require("jsonwebtoken");
-const { userid, temp } = require("../middleware/temp");
 const { SECRET, authenticateJwt } = require("../middleware/auth");
 
 router.post("/login", async (req, res) => {
@@ -15,7 +14,7 @@ router.post("/login", async (req, res) => {
         res.json({ msg: "Wrong password" });
       } else {
         const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
-        res.json({ msg: "Login successfully", token });
+        res.json({ msg: "Login successfully", user,token });
       }
     } else {
       res.json({ msg: "User does not exist" });

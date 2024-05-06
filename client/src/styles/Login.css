@@ -5,9 +5,7 @@
     font-weight: 400;
   }
 body{
-  background-image: url('../../public/1.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: black;
 
  
 }

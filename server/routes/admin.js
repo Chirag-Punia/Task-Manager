@@ -3,13 +3,8 @@ const express = require("express");
 const router = express.Router();
 const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
-const jwt = require("jsonwebtoken");
-const { userid, temp } = require("../middleware/temp");
-const { SECRET, authenticateJwt } = require("../middleware/auth");
 const taskSchema = require("../models/task");
 const taskDB = mongoose.model("taskDB", taskSchema);
-
-// .findOneAndUpdate({ _id: id }, { $set: { done: true } })
 
 router.get("/data", async (req, res) => {
   await user.find().then((data) => {
@@ -17,10 +12,10 @@ router.get("/data", async (req, res) => {
   });
 });
 router.get("/data/task", async (req, res) => {
-    await taskDB.find().then((data) => {
-      res.send(data);
-    });
+  await taskDB.find().then((data) => {
+    res.send(data);
   });
+});
 
 router.patch("/data", async (req, res) => {
   const { idd } = req.body;

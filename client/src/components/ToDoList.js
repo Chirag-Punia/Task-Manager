@@ -5,11 +5,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { authState } from "../store/authState";
-import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const ToDoList = () => {
-  const navigate = useNavigate();
-  const [date, Datechange] = useState();
+  moment().format();
+  let [date, Datechange] = useState();
   const base_url = "https://todo-1-5ip8.onrender.com";
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState();
@@ -35,6 +35,7 @@ const ToDoList = () => {
       );
     });
   };
+  date = moment(date).toDate();
   var configTodo = {
     method: "POST",
     url: `${base_url}/todos/todo`,
@@ -52,7 +53,7 @@ const ToDoList = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     await axios(configTodo).then((res) => {
-      console.log(date);
+      console.log(date, typeof date);
       if (res.status === 200) {
         setTodos([...todos, res.data]);
         toast.success("Task created");

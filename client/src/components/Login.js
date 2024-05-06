@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Login.css";
 import axios from "axios";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const Login = () => {
-
   const base_url = "https://todo-1-5ip8.onrender.com";
-  const reactNavigator = useNavigate();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const handleClick = async (e) => {
     e.preventDefault();
     await axios
@@ -18,28 +18,26 @@ const Login = () => {
       .then((res) => {
         if (res.data.msg === "Wrong password") {
           toast.error("Wrong password");
-        }
-        else if(res.data.msg === "Login successfully"){
-          if(res.data.token){
+        } else if (res.data.msg === "Login successfully") {
+          if (res.data.token) {
             localStorage.setItem("token", res.data.token);
-            window.location = "/dashboard";
-            // reactNavigator("/dashboard")
+            if (res.data.user.isAdmin === true) {
+              window.location = "/admin";
+            } else {
+              window.location = "/dashboard";
+            }
           }
           toast.success("Login successfully");
-
         } else {
           toast.error("User does not exist");
           window.location = "/signup";
         }
       });
   };
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
   return (
     <>
-     <h1>Task Scheduler</h1>
+      <h1>Task Scheduler</h1>
       <div className={"wrapper signin"}>
-       
         <div className="form">
           <div className="heading">Login Page</div>
           <form>

@@ -4,11 +4,13 @@ const mongoose = require("mongoose");
 const taskSchema = require("../models/task");
 const taskDB = mongoose.model("taskDB", taskSchema);
 const { authenticateJwt } = require("../middleware/auth");
-const schedule = require("node-schedule");
 const nodemailer = require("nodemailer");
 const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
-const cron = require("node-cron")
+var schedule = require("node-schedule");
+const moment = require("moment");
+moment().local();
+moment().local(true); 
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -21,15 +23,7 @@ const transporter = nodemailer.createTransport({
 });
 const handleJob = async (date, userID, task, description) => {
   console.log("inside handle job");
-  const dateTime = new Date(date);
-  const minute = dateTime.getMinutes().toString();
-  const hour = dateTime.getHours().toString();
-  const dayOfMonth = dateTime.getDate().toString();
-  const month = (dateTime.getMonth() + 1).toString();
-  const dayOfWeek = dateTime.getDay().toString();
-  console.log(dateTime);
-  console.log(`${minute} ${hour} ${dayOfMonth} ${month}  *`);
-  cron.schedule(`* * * * *`, async () => {
+  schedule.scheduleJob(`${date}`, async () => {
     console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
       return user.email;
@@ -71,7 +65,8 @@ const mailDone = async (userID) => {
   });
 };
 router.post("/todo", authenticateJwt, async (req, res) => {
-  const { task, description, date } = req.body;
+  let { task, description, date } = req.body;
+  date = moment.parseZone(date).local().format();
   const newTask = new taskDB({
     date: date,
     task: task,
