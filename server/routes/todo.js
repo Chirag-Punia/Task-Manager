@@ -67,13 +67,19 @@ const mailDone = async (userID) => {
 router.post("/todo", authenticateJwt, async (req, res) => {
   let { task, description, date } = req.body;
   console.log(date , typeof date);
-  if(date.getHours < 12){
-    date = moment(date).add(5,"h").toDate();
-    date = moment(date).add(30,"m").toDate();
+  const selectedHour = parseInt(date.slice(11, 13), 10);
+  const selectedMinute = parseInt(date.slice(14), 10);
+  const adjustedDateTime = null;
+  if(selectedHour < 12){
+    const adjustedHour = selectedHour + 5;
+    const adjustedMinute = selectedMinute + 30;
+    const adjustedTimeString = `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
+    adjustedDateTime = date.slice(0, 11) + adjustedTimeString;
   }
   console.log(date, typeof date);
+  console.log(adjustedDateTime)
   const newTask = new taskDB({
-    date: date,
+    date: adjustedDateTime,
     task: task,
     description: description,
     userID: req.headers.userID,
