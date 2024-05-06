@@ -1,10 +1,7 @@
 ````markdown
 ## Task Manager App
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
-**Task Manager App** is a project aimed at providing a comprehensive solution for managing tasks efficiently. This repository contains both client-side and server-side code.
+it is a project aimed at providing a comprehensive solution for managing tasks efficiently. This repository contains both client-side and server-side code.
 
 ## Directory Structure
 

@@ -8,21 +8,19 @@ const nodemailer = require("nodemailer");
 const userSchema = require("../models/user");
 const user = mongoose.model("user", userSchema);
 var schedule = require("node-schedule");
-const moment = require("moment");
-moment().local();
-moment().local(true);
+
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
   port: 587,
   auth: {
-    user: "samplemail650@gmail.com",
-    pass: "dcallqzulbgqhuwt",
+    user: process.env.xemail,
+    pass: process.env.pass,
   },
 });
 const handleJob = async (date, userID, task, description) => {
-  console.log("inside handle job");
   schedule.scheduleJob(`${date}`, async () => {
     console.log("Job started");
     const EMAIL = await user.findOne({ _id: userID }).then((user) => {
@@ -66,7 +64,7 @@ const mailDone = async (userID) => {
 };
 router.post("/todo", authenticateJwt, async (req, res) => {
   let { task, description, date } = req.body;
-  console.log(date , typeof date);
+
   const selectedHour = parseInt(date.slice(11, 13), 10);
   const selectedMinute = parseInt(date.slice(14), 10);
   let adjustedDateTime = null;
@@ -76,8 +74,7 @@ router.post("/todo", authenticateJwt, async (req, res) => {
     const adjustedTimeString = `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
     adjustedDateTime = date.slice(0, 11) + adjustedTimeString;
   }
-  console.log(date, typeof date);
-  console.log(adjustedDateTime)
+
   const newTask = new taskDB({
     date: adjustedDateTime,
     task: task,

@@ -5,10 +5,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { authState } from "../store/authState";
-import moment from "moment";
+
 
 const ToDoList = () => {
-  moment().format();
+
   let [date, Datechange] = useState();
   const base_url = "https://todo-1-5ip8.onrender.com";
   const [todos, setTodos] = useState([]);
@@ -35,9 +35,9 @@ const ToDoList = () => {
       );
     });
   };
-  console.log(date, typeof date);
+
   date = new Date(date);
-  console.log(date, typeof date);
+
   var configTodo = {
     method: "POST",
     url: `${base_url}/todos/todo`,
@@ -55,7 +55,7 @@ const ToDoList = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     await axios(configTodo).then((res) => {
-      console.log(date, typeof date);
+
       if (res.status === 200) {
         setTodos([...todos, res.data]);
         toast.success("Task created");
