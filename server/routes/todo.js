@@ -73,7 +73,7 @@ router.post("/todo", authenticateJwt, async (req, res) => {
     let adjustedMinute = selectedMinute + 30;
     if (adjustedMinute > 60) {
       adjustedHour = adjustedHour + 1;
-      adjustedMinute = 60 - adjustedMinute;
+      adjustedMinute = adjustedMinute-60;
     }
     const adjustedTimeString = `${adjustedHour
       .toString()
